@@ -1,0 +1,511 @@
+<!doctype html>
+<!--[if lt IE 7 ]> <html lang="en" class="ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+<title>Happo : Product Detail for Business Solution</title>
+<link rel="icon" type="image/x-icon" href="pics/favicon.ico">
+<meta name="viewport" content="width = 1050, user-scalable = no" />
+<script type="text/javascript" src="js/extras/jquery.min.1.7.js"></script>
+<script type="text/javascript" src="js/extras/modernizr.2.5.3.min.js"></script>
+<script type="text/javascript" src="js/lib/hash.js"></script>
+</head>
+<body>
+
+
+<audio id="musicplayer">
+	<source src="pics/sound.mp3" />
+</audio>
+
+<div id="canvas">
+	<div class="logo">          
+		<img src="pics/go-button.png" width="74" height="32" class="happo">
+		<img src="pics/sukit-button.png" width="74" height="32" class="sukit">
+		<img src="pics/download-button.png" width="74" height="32" class="googledrive">
+    </div>
+
+	<div class="mode">          
+        <span class="change">Light</span>
+    </div>
+
+	<div class="sound">          
+        <span class="mute">Silent</span>
+		<span class="tooltiptext">Beautiful Dreamer -- Stephen Foster</span>
+    </div>
+
+<div class="zoom-icon zoom-icon-in"></div>
+
+<div class="magazine-viewport">
+	<div class="container">
+		<div class="magazine">
+			<!-- Next button -->
+			<div ignore="1" class="next-button"></div>
+			<!-- Previous button -->
+			<div ignore="1" class="previous-button"></div>
+		</div>
+	</div>
+</div>
+
+<!-- Thumbnails -->
+<div class="thumbnails">
+	<div>
+		<ul>
+			<li class="i">
+				<img src="pages/1-thumb.jpg" width="76" height="100" class="page-1">
+			</li>
+			<li class="d">
+				<img src="pages/2-thumb.jpg" width="76" height="100" class="page-2">
+				<img src="pages/3-thumb.jpg" width="76" height="100" class="page-3">
+			</li>
+			<li class="d">
+				<img src="pages/4-thumb.jpg" width="76" height="100" class="page-4">
+				<img src="pages/5-thumb.jpg" width="76" height="100" class="page-5">
+			</li>
+			<li class="d">
+				<img src="pages/6-thumb.jpg" width="76" height="100" class="page-6">
+				<img src="pages/7-thumb.jpg" width="76" height="100" class="page-7">
+			</li>
+			<li class="d">
+				<img src="pages/8-thumb.jpg" width="76" height="100" class="page-8">
+				<img src="pages/9-thumb.jpg" width="76" height="100" class="page-9">
+			</li>
+			<li class="d">
+				<img src="pages/10-thumb.jpg" width="76" height="100" class="page-10">
+				<img src="pages/11-thumb.jpg" width="76" height="100" class="page-11">
+			</li>
+			<li class="d">
+				<img src="pages/12-thumb.jpg" width="76" height="100" class="page-12">
+				<img src="pages/13-thumb.jpg" width="76" height="100" class="page-13">
+			</li>
+			<li class="d">
+				<img src="pages/14-thumb.jpg" width="76" height="100" class="page-14">
+				<img src="pages/15-thumb.jpg" width="76" height="100" class="page-15">
+			</li>
+			<li class="d">
+				<img src="pages/16-thumb.jpg" width="76" height="100" class="page-16">
+				<img src="pages/17-thumb.jpg" width="76" height="100" class="page-17">
+			</li>
+			<li class="d">
+				<img src="pages/18-thumb.jpg" width="76" height="100" class="page-18">
+				<img src="pages/19-thumb.jpg" width="76" height="100" class="page-19">
+			</li>
+			<li class="d">
+				<img src="pages/20-thumb.jpg" width="76" height="100" class="page-20">
+				<img src="pages/21-thumb.jpg" width="76" height="100" class="page-21">
+			</li>
+			<li class="d">
+				<img src="pages/22-thumb.jpg" width="76" height="100" class="page-22">
+				<img src="pages/23-thumb.jpg" width="76" height="100" class="page-23">
+			</li>
+		<ul>
+	<div>	
+</div>
+</div>
+
+<script type="text/javascript">
+function loadApp() {
+ 	$('#canvas').fadeIn(1000);
+
+ 	var flipbook = $('.magazine');
+
+ 	// Check if the CSS was already loaded
+	
+	if (flipbook.width()==0 || flipbook.height()==0) {
+		setTimeout(loadApp, 10);
+		return;
+	}
+	
+	// Create the flipbook
+
+	flipbook.turn({
+			
+			// Magazine width
+
+			width: 922,
+
+			// Magazine height
+
+			height: 600,
+
+			// Duration in millisecond
+
+			duration: 1000,
+
+			// Hardware acceleration
+
+			acceleration: !isChrome(),
+
+			// Enables gradients
+
+			gradients: true,
+			
+			// Auto center this flipbook
+
+			autoCenter: true,
+
+			// Elevation from the edge of the flipbook when turning a page
+
+			elevation: 50,
+
+			// The number of pages
+
+			pages: 23,
+
+			// Events
+
+			when: {
+				turning: function(event, page, view) {
+					
+					var book = $(this),
+					currentPage = book.turn('page'),
+					pages = book.turn('pages');
+			
+					// Update the current URI
+
+					Hash.go('page/' + page).update();
+
+					// Show and hide navigation buttons
+
+					disableControls(page);
+					
+
+					$('.thumbnails .page-'+currentPage).
+						parent().
+						removeClass('current');
+
+					$('.thumbnails .page-'+page).
+						parent().
+						addClass('current');
+
+
+
+				},
+
+				turned: function(event, page, view) {
+
+					disableControls(page);
+
+					$(this).turn('center');
+
+					if (page==1) { 
+						$(this).turn('peel', 'br');
+					}
+
+				},
+
+				missing: function (event, pages) {
+
+					// Add pages that aren't in the magazine
+
+					for (var i = 0; i < pages.length; i++)
+						addPage(pages[i], $(this));
+
+				}
+			}
+
+	});
+
+	// Zoom.js
+
+	$('.magazine-viewport').zoom({
+		flipbook: $('.magazine'),
+
+		max: function() { 
+			
+			return largeMagazineWidth()/$('.magazine').width();
+
+		}, 
+
+		when: {
+
+			swipeLeft: function() {
+
+				$(this).zoom('flipbook').turn('next');
+
+			},
+
+			swipeRight: function() {
+				
+				$(this).zoom('flipbook').turn('previous');
+
+			},
+
+			resize: function(event, scale, page, pageElement) {
+
+				if (scale==1)
+					loadSmallPage(page, pageElement);
+				else
+					loadLargePage(page, pageElement);
+
+			},
+
+			zoomIn: function () {
+
+				$('.thumbnails').hide();
+				$('.made').hide();
+				$('.magazine').removeClass('animated').addClass('zoom-in');
+				$('.zoom-icon').removeClass('zoom-icon-in').addClass('zoom-icon-out');
+				
+				if (!window.escTip && !$.isTouch) {
+					escTip = true;
+
+					$('<div />', {'class': 'exit-message'}).
+						html('<div>Press ESC to exit</div>').
+							appendTo($('body')).
+							delay(2000).
+							animate({opacity:0}, 500, function() {
+								$(this).remove();
+							});
+				}
+			},
+
+			zoomOut: function () {
+
+				$('.exit-message').hide();
+				$('.thumbnails').fadeIn();
+				$('.made').fadeIn();
+				$('.zoom-icon').removeClass('zoom-icon-out').addClass('zoom-icon-in');
+
+				setTimeout(function(){
+					$('.magazine').addClass('animated').removeClass('zoom-in');
+					resizeViewport();
+				}, 0);
+
+			}
+		}
+	});
+
+	// Zoom event
+
+	if ($.isTouch)
+		$('.magazine-viewport').bind('zoom.doubleTap', zoomTo);
+	else
+		$('.magazine-viewport').bind('zoom.tap', zoomTo);
+
+
+	// Using arrow keys to turn the page
+
+	$(document).keydown(function(e){
+
+		var previous = 37, next = 39, esc = 27;
+
+		switch (e.keyCode) {
+			case previous:
+
+				// left arrow
+				$('.magazine').turn('previous');
+				e.preventDefault();
+
+			break;
+			case next:
+
+				//right arrow
+				$('.magazine').turn('next');
+				e.preventDefault();
+
+			break;
+			case esc:
+				
+				$('.magazine-viewport').zoom('zoomOut');	
+				e.preventDefault();
+
+			break;
+		}
+	});
+
+	// URIs - Format #/page/1 
+
+	Hash.on('^page\/([0-9]*)$', {
+		yep: function(path, parts) {
+			var page = parts[1];
+
+			if (page!==undefined) {
+				if ($('.magazine').turn('is'))
+					$('.magazine').turn('page', page);
+			}
+
+		},
+		nop: function(path) {
+
+			if ($('.magazine').turn('is'))
+				$('.magazine').turn('page', 1);
+		}
+	});
+
+
+	$(window).resize(function() {
+		resizeViewport();
+	}).bind('orientationchange', function() {
+		resizeViewport();
+	});
+
+	// Events for thumbnails
+
+	$('.thumbnails').click(function(event) {
+		
+		var page;
+
+		if (event.target && (page=/page-([0-9]+)/.exec($(event.target).attr('class'))) ) {
+		
+			$('.magazine').turn('page', page[1]);
+			if (page[1] == 1) {readitout("Hi, this is Happo's Product Detail for Business Solution.");};
+			if ((page[1] == 2)|| page[1] == 3) {readitout("In this papers, you will get the answers for What is Happo? Why you should use Happo and recommend it to your organization? How does it work? It is a science or just a myth. How Happo helps you and your company? How is the price? and How can we work for you?");};
+			if ((page[1] == 4)|| page[1] == 5) {readitout("Happo is a Mental Health Support platform for: 1. Pre-Analyzing Mental Status to identifies problem. 2. Recommending Professional Services for Intervention, And 3., Suggesting Exercises for Rehabilitation. You can tell Happo anything then, Happo will sincere shows you how you are. Clearing your worries with Professional Help.");};
+			if ((page[1] == 6)|| page[1] == 7) {readitout("Why Happo? Happo aims to help people who unsure about their mental status and want to clear their mind to settle on something. If you find yourself having trouble with focus or keep losing concentration over time, then Happo is your motivative tool. If you find yourself feel boredom or being tedious all the time, then Happo is your booster. If you find yourself feel bad and don’t know how to handle it, then Happo is your guidance. Why is may important to your company as well? We have collected survey from patients who working in industrial site, and we found that they are suffering from treatment fees and losing hope to get better. More importantly, they feel lack support from their employer.");};
+			if ((page[1] == 8)|| page[1] == 9) {readitout("Even though traditional procedure may not an issue, but still can’t to solve the problem that mentioned earlier because we have a shortage of professional practitioners. In Thailand, 1 Psychiatrist has to take care more than 5,000 stress related patients. This means there are not enough services for everyone, and many patient will not get a proper potion of intervention to be better. Undoubtedly, some of patients may feel hindered by the process and eventually give up the treatment. If you found someone under your care are seem to be burnout, then Happo is your assistant to help them. Why Happo is good for your organization? Happo is cheap but providing wide length of support. It's good for Organizational Mental Treatment and Monitoring. Happo provides the fast screening and reliable result. It's good for pulse surveying. And, Happo working in collaboration with professional services. That mean it's good for Counseling and Intervention as well.");};
+			if ((page[1] == 10)|| page[1] == 11) {readitout("Benefits of Happo for your organisation. I can tell you from these four aspects. 1. Employee can fix their internalizing problem at the right spot, which help them to be a better person and extend their limitation to work effectively. 2. Manager can improve leadership competency for better understanding of the cause behind subordinate action. 3. HR can get a better understanding of mental health that reflects wellbeing of employees in organization. And, 4. Oraganization can be noticed which talents should be retained to reaches better performance and more profit. … How it work? Human linguistics is the composition of 4 knowledges: World, Syntax, Lexicon, and Phonetics to give a meaning to human intention. This process is happening in the brain. Then, it is delivering via periperal nervous system to articulatory muscle for producing speech sounds. If something affects cognition making interpretion process goes wrong. It will relfect on the speech production. And, it can be found throughout speech behavior during conversation. However, human hearing system is not design for diagnosing symptom. … Luckily, Happo can do!");};
+			if ((page[1] == 12)|| page[1] == 13){readitout("Science behind our symptom recognition model. Happo use signal acoutic signal of speech vacal tract and its spectrograph on deep classification model. The model has been trained by symptom sets which labelled by psychiatrists and data scientists. Happo also creates instruction-tuned model for each user by training restructed dataset that generating from Gan-M.R.E.L.B.P. model. Our Low Levels Description Based ResNet Model has 73.89% of F1-Score, 74.22% Sensitivity, and 73.36% accuracy. But, after 5 times of usages, with our Instructed Model, it can reaches 93.9% F1-Score, 91.32% Sensitivity, and 93.07% accuracy. From our experiment, we found that our Gan training with raw signal datasets can achieved the best performance. At the Result, We got a Self-Mental Screening Model for everyday uses that improving its performance from time to times.");};
+			if ((page[1] == 14)|| page[1] == 15) {readitout("How Happo helps you? 1. Happo can pre-diagnoses your problem. You can use Happo Model to pre-analyze stress severity and identify internalizing problem. Analyzed Stat is showing in User Profile. HR can go to Data section to see each Employee Stat. 2. Happo can helps you plan your routine exercises. You can use Happo as Habit Planner. Let Happo suggests Behavior Activation Program for you and notify when to do. HR has ability to creates exercise plans for every employee via Habit Planner. Exercises Progress can be found at Employee Profile in Data. ");};
+			if ((page[1] == 16)|| page[1] == 17) {readitout("3. Happo can links you to the doctor. You can use Happo to reach to Professional Service. You can book the slots and use our counseling service privately. HR can be notified whenever that employee has reserved the telemed session or analyse the mental health. Seeing the summary in Wallet Section. And, 4. Happo can makes you feel better. You can use Happo as a tool for mood therapy. Doing Behavior Activation Exercise will releases your stress. Behavior Activation Exercise is the activity that design for cognitive improvement. Right now, there are only 4 exercises available on Happo: 3 minutes breathing exercises, 5 minutes meditation exercises, Mood Diary, and Goal Setting. Other exercises will be adding in the future update.");};
+			if ((page[1] == 18)|| page[1] == 19) {readitout("How is the price? We propose three packages that we think it could be fitted with your organization. First, if you are working for small firm, then package of 75,000 baht is enough for you. This smallest package gives you 250 credits for analysing your team mate stress. Bundling with 30 tele-counseling sessions and 1 online stress reduction workshop. Second, if you are working for medium sized business, then you must buy at least 150,000 baht package because it provides you 500 credits for stress analysis, 70 tele-counseling sessions, 2 online workshops for stress reduction, and 2 offline workshops for burnout retreat. Third, if you are working for the large enterprise, then you choice should be 300,000 baht package. It gives you 500 credits for stress analysis, 150 tele-counseling sessions, 5 online workshops for stress reduction, and 4 offline workshops for burnout retreat, which is more than double from both other two packages. But, if you prefer other offers, we can provide a custom service just for your company. please dont hesitate to consult with us by booking our time on Calendly. However, Happo also has a price for individual use which can be purchase directly from the platform. It cost you only 36 Baht for 1 time stress analysis. If you want to book counseling session with professional, it cost you 1,200 Baht for each session. You can pay 1,000 Baht to book the seat for online workshop of stress reduction or self-rehalitation.");};
+			if ((page[1] == 20)|| page[1] == 21) {readitout("How we work for you? Once we can reach to you and have greeted you, we will process our discovery session. We are happy to hear your story and study your problem. After that, we will present our solution that customised for solving you problem. If both of us have agreed with the solution, we will propose the price. After we receive payment, we will start with Online/Onsite Screening services for your Employees. If we found anyone who has internalizing problem, we will arrange counseling session with our psychiatrist to proceed intervention. Psychiatrist will provide the follow-up treatments from time to times along with medicine forremedy. If it's needed. We also have Workshop for those who have found no issue. The workshop operated by professional. We recommend Happo users to try our Behavior Activation exercise for self-rehabilitation. During the service phase, we will conduct screening of your employee from time to times. Normally, the service for Small Business Package is a plan for 1 month. Meduim Business Package is for 3 months and Large Business Package is for 6 Months. Though, client can redeem each services that state in the package details without concern on timeframe but no late than a year after purchased. If you would like us to discover your problem and propose our solution for you, please dont hesitate to book our time to consult with us at Calendly.");};
+		}
+	});
+
+	$('.thumbnails li').
+		bind($.mouseEvents.over, function() {
+			
+			$(this).addClass('thumb-hover');
+
+		}).bind($.mouseEvents.out, function() {
+			
+			$(this).removeClass('thumb-hover');
+
+		});
+
+	if ($.isTouch) {
+	
+		$('.thumbnails').
+			addClass('thumbanils-touch').
+			bind($.mouseEvents.move, function(event) {
+				event.preventDefault();
+			});
+
+	} else {
+
+		$('.thumbnails ul').mouseover(function() {
+
+			$('.thumbnails').addClass('thumbnails-hover');
+
+		}).mousedown(function() {
+
+			return false;
+
+		}).mouseout(function() {
+
+			$('.thumbnails').removeClass('thumbnails-hover');
+
+		});
+
+	}
+
+
+	// Regions
+
+	if ($.isTouch) {
+		$('.magazine').bind('touchstart', regionClick);
+	} else {
+		$('.magazine').click(regionClick);
+	}
+
+	// Events for the next button
+
+	$('.next-button').bind($.mouseEvents.over, function() {
+		
+		$(this).addClass('next-button-hover');
+
+	}).bind($.mouseEvents.out, function() {
+		
+		$(this).removeClass('next-button-hover');
+
+	}).bind($.mouseEvents.down, function() {
+		
+		$(this).addClass('next-button-down');
+
+	}).bind($.mouseEvents.up, function() {
+		
+		$(this).removeClass('next-button-down');
+
+	}).click(function() {
+		
+		$('.magazine').turn('next');
+
+	});
+
+	// Events for the next button
+	
+	$('.previous-button').bind($.mouseEvents.over, function() {
+		
+		$(this).addClass('previous-button-hover');
+
+	}).bind($.mouseEvents.out, function() {
+		
+		$(this).removeClass('previous-button-hover');
+
+	}).bind($.mouseEvents.down, function() {
+		
+		$(this).addClass('previous-button-down');
+
+	}).bind($.mouseEvents.up, function() {
+		
+		$(this).removeClass('previous-button-down');
+
+	}).click(function() {
+		
+		$('.magazine').turn('previous');
+
+	});
+
+
+	resizeViewport();
+
+	$('.magazine').addClass('animated');
+
+}
+
+// Zoom icon
+
+ $('.zoom-icon').bind('mouseover', function() { 
+ 	
+ 	if ($(this).hasClass('zoom-icon-in'))
+ 		$(this).addClass('zoom-icon-in-hover');
+
+ 	if ($(this).hasClass('zoom-icon-out'))
+ 		$(this).addClass('zoom-icon-out-hover');
+ 
+ }).bind('mouseout', function() { 
+ 	
+ 	 if ($(this).hasClass('zoom-icon-in'))
+ 		$(this).removeClass('zoom-icon-in-hover');
+ 	
+ 	if ($(this).hasClass('zoom-icon-out'))
+ 		$(this).removeClass('zoom-icon-out-hover');
+
+ }).bind('click', function() {
+
+ 	if ($(this).hasClass('zoom-icon-in'))
+ 		$('.magazine-viewport').zoom('zoomIn');
+ 	else if ($(this).hasClass('zoom-icon-out'))	
+		$('.magazine-viewport').zoom('zoomOut');
+
+ });
+
+ $('#canvas').hide();
+
+
+// Load the HTML4 version if there's not CSS transform
+
+yepnope({
+	test : Modernizr.csstransforms,
+	yep: ['js/lib/turn.js'],
+	nope: ['js/lib/turn.html4.min.js'],
+	both: ['js/lib/zoom.min.js', 'js/magazine.js', 'css/magazine.css'],
+	complete: loadApp
+});
+
+</script>
+
+</body>
+</html>
